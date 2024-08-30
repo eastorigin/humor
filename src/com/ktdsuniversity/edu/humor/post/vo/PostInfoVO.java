@@ -7,6 +7,7 @@ public class PostInfoVO {
 	private String pstTm;
 	private String pstSrce;
 	
+	
 	public int getPstId() {
 		return pstId;
 	}
