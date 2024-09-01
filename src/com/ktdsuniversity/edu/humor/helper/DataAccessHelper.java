@@ -44,8 +44,8 @@ public class DataAccessHelper {
 	// 2. 커넥션을 맺음 (Session 생성)
 	private void connectDatabase() {
 		final String JDBC_URL = "jdbc:oracle:thin:@localhost:1521:XE";
-		final String SCHEMA_NAME = "LOTTE_CINEMA";
-		final String SCHEMA_PASSWORD = "LOTTE_CINEMA";
+		final String SCHEMA_NAME = "HUMOR";
+		final String SCHEMA_PASSWORD = "HUMOR";
 		
 		try {
 			this.connection = DriverManager.getConnection(JDBC_URL, SCHEMA_NAME, SCHEMA_PASSWORD);
