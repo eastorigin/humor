@@ -8,7 +8,7 @@ public class CommentInfoDao {
 	
 	public void insertComment(CommentInfoVO newCommentData, int pstId, Integer pprCmmntId, DataAccessHelper dataAccessHelper) {
 		
-		String newPkValueQuery = "SELECT LPAD(COMMENT_INFO_PK_SEQ.NEXTVAL, 5, '0') COMMENT_INFO_PK FROM DUAL";
+		String newPkValueQuery = "SELECT COMMENT_INFO_PK_SEQ.NEXTVAL COMMENT_INFO_PK FROM DUAL";
 		dataAccessHelper.preparedStatement(newPkValueQuery, null);
 		dataAccessHelper.executeQuery(SQLType.SELECT, rs -> {
 			int newPk = rs.getInt("COMMENT_INFO_PK");

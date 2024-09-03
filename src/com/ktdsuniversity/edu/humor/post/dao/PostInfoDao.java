@@ -16,22 +16,22 @@ public class PostInfoDao {
 		
 		StringBuffer query = new StringBuffer();
 		
-		query.append(" SELECT pi.PST_ID               								");
-		query.append("  	 , pi.PST_TTL             								");
-		query.append("  	 , TO_CHAR(pi.PST_TM,'YYYY-MM-DD') PST_TM              ");
-		query.append("  	 , pi.PST_CNTNT           								");
-		query.append("  	 , pi.PST_SRCE            								");
-		query.append("  	 , pa.TTCHMNT_URL         								");
-		query.append("  	 , ci.CMMNT_ID            								");
-		query.append("  	 , ci.CMMNT_THR           								");
-		query.append("  	 , TO_CHAR(ci.CMMNT_TM,'YYYY-MM-DD') CMMNT_TM           								");
-		query.append("  	 , TO_CHAR(ci.CMMNT_DT_TM,'YYYY-MM-DD') CMMNT_DT_TM        								");
-		query.append("  	 , ci.CMMNT_CNTNT         								");
-		query.append("   FROM POST_INFO pi            								");
-		query.append("   JOIN POST_ATTACHMENT pa      								");
-		query.append("   	ON pi.PST_ID = pa.PST_ID  								");
-		query.append("   JOIN COMMENT_INFO ci         								");
-		query.append("   	ON pi.PST_ID = ci.PST_ID  								");
+		query.append(" SELECT pi.PST_ID               									");
+		query.append("  	 , pi.PST_TTL             									");
+		query.append("  	 , TO_CHAR(pi.PST_TM,'YYYY-MM-DD') PST_TM             	 	");
+		query.append("  	 , pi.PST_CNTNT           									");
+		query.append("  	 , pi.PST_SRCE            									");
+		query.append("  	 , pa.TTCHMNT_URL         									");
+		query.append("  	 , ci.CMMNT_ID            									");
+		query.append("  	 , ci.CMMNT_THR           									");
+		query.append("  	 , TO_CHAR(ci.CMMNT_TM,'YYYY-MM-DD') CMMNT_TM           	");
+		query.append("  	 , TO_CHAR(ci.CMMNT_DT_TM,'YYYY-MM-DD') CMMNT_DT_TM        	");
+		query.append("  	 , ci.CMMNT_CNTNT         									");
+		query.append("   FROM POST_INFO pi            									");
+		query.append("   LEFT JOIN POST_ATTACHMENT pa      								");
+		query.append("   	ON pi.PST_ID = pa.PST_ID  									");
+		query.append("   LEFT JOIN COMMENT_INFO ci         								");
+		query.append("   	ON pi.PST_ID = ci.PST_ID  									");
 		
 		dataAccessHelper.preparedStatement(query.toString(), null);
 		dataAccessHelper.executeQuery(SQLType.SELECT, rs -> {
@@ -68,6 +68,8 @@ public class PostInfoDao {
 			commentInfoVO.setCmmntTm(cmmntTm);
 			commentInfoVO.setCmmntDtTm(cmmntDtTm);
 			commentInfoVO.setCmmntCntnt(cmmntCntnt);
+			
+			commentList.add(commentInfoVO);
 		});
 		
 		return postList;
@@ -75,7 +77,7 @@ public class PostInfoDao {
 
 	public void insertNewPost(PostInfoVO newPostData, DataAccessHelper dataAccessHelper) {
 		
-		String newPkValueQuery = "SELECT LPAD(POST_INFO_PK_SEQ.NEXTVAL, 5, '0') AS PST_ID FROM DUAL";
+		String newPkValueQuery = "SELECT POST_INFO_PK_SEQ.NEXTVAL AS PST_ID FROM DUAL";
 		dataAccessHelper.preparedStatement(newPkValueQuery, null);
 		dataAccessHelper.executeQuery(SQLType.SELECT, rs -> {
 			int newPk = rs.getInt("PST_ID");

@@ -7,7 +7,7 @@ import com.ktdsuniversity.edu.humor.helper.SQLType;
 public class AttachmentInfoDao {
 
 	public void insertNewAttachment(AttachmentInfoVO newAttachmentData, int pstId, DataAccessHelper dataAccessHelper) {
-		String newPkValueQuery = "SELECT LPAD(POST_ATTACHMENT_PK_SEQ.NEXTVAL, 5, '0') POST_ATTACHMENT_PK FROM DUAL";
+		String newPkValueQuery = "SELECT POST_ATTACHMENT_PK_SEQ.NEXTVAL POST_ATTACHMENT_PK FROM DUAL";
 		dataAccessHelper.preparedStatement(newPkValueQuery, null);
 		dataAccessHelper.executeQuery(SQLType.SELECT, rs -> {
 			int newPk = rs.getInt("POST_ATTACHMENT_PK");
